@@ -1,17 +1,21 @@
 const toDoForm = document.querySelector(".js-toDoForm"),
     toDoInput = toDoForm.querySelector("input"),
-    toDoList = document.querySelector(".js-toDoList");
+    toDoList = document.querySelector(".js-toDoList"); // ul
 
 const TODOS_LS = 'toDos';
+        //local storage = LS
 
-let toDos = [];
+
+
+
+let toDos = []; // 할 일 목록을 array에 담기
 
 function saveToDos() {
     localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
     // stringify: 자바스크립트 object를 string으로 바꿔준다.
+    // local storage에는 자바스크립트의 data를 저장할 수 없다.
+    // js는 ls에 있는 모든 데이터를 string으로 저장하려고 한다.
 }
-
-
 
 function deleteToDo(event) {
     const btn = event.target;
@@ -48,7 +52,7 @@ function handleSubmit(event) {
     event.preventDefault();
     const currentValue = toDoInput.value;
     paintTodo(currentValue);
-    toDoInput.value = '';
+    toDoInput.value = ''; // submit했을 때 작성한 내용 초기화
 }
 
 
@@ -57,7 +61,9 @@ function loadToDos() {
     const loadedToDos = localStorage.getItem(TODOS_LS);
     if (loadedToDos !== null) {
         const parseToDos = JSON.parse(loadedToDos);
+                        // object로 변환 => js로 다루기 위해서
         parseToDos.forEach(function (toDo) {
+                //forEach: array에 담겨있는 것들 각각에 한번씩 함수를 실행시켜 준다.
             paintTodo(toDo.text);
         });
     }
