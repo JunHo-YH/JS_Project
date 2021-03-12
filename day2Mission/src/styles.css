@@ -1,0 +1,19 @@
+body {
+  font-family: sans-serif;
+}
+
+.small {
+  background-color: red;
+}
+
+.middle {
+  background-color: blue;
+}
+
+.large {
+  background-color: purple;
+}
+
+.base {
+  background-color: yellow;
+}
