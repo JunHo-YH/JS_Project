@@ -1,0 +1,12 @@
+body {
+  font-family: sans-serif;
+}
+
+.start,
+.result{
+  display: none;
+}
+
+.showing {
+  display: block;
+}
