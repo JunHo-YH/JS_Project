@@ -1,45 +1,29 @@
-// <⚠️ DONT DELETE THIS ⚠️>
-// import "./styles.css";
-// <⚠️ /DONT DELETE THIS ⚠️>
+const range = document.getElementById("js-range");
+const title = document.querySelector(".js-title");
+const guessForm = document.getElementById("js-guess");
+const result = document.getElementById("js-result");
 
-let range = document.querySelector('.range');
-let chNumber = document.querySelector('.chNumber');
-let inNumber = document.querySelector('.inNumber');
-let comNumber = document.querySelector('.comNumber');
-
-
-const result = document.querySelector('.result');
-const start = document.querySelector('.start');
-const play_btn = document.querySelector('.play');
-const SHOWING = "showing";
-
-
-function rangeHandle() {
-    chNumber.innerHTML = chNumber.value;
+function handleRangeChange(e) {
+  const selectedRange = title.querySelector("span");
+  selectedRange.innerHTML = range.value;
 }
 
-function clickHandle() {
-    result.classList.add(SHOWING);
-    start.classList.remove('start');
-    chNumber.innerHTML = inNumber.value;
-    comNumber.innerHTML = random(0, range.value);
-    if (comNumber.innerHTML === chNumber.innerHTML) {
-        result.innerText = "You Win!"
-    } else {
-        result.innerText  = "You lost!"
-    }
-    
-    start.classList.add(SHOWING);
-
+function handleGuessSubmit(e) {
+  e.preventDefault();
+  const guessInput = guessForm.querySelector("input");
+  if (guessInput.value === "") {
+    return;
+  }
+  const max = range.value;
+  const random = Math.ceil(Math.random() * max);
+  const userGuess = parseInt(guessInput.value, 10);
+  const resultSpan = result.querySelector("span");
+  resultSpan.innerHTML = `
+  You chose: ${userGuess},
+  the machine chose: ${random}.<br />
+  <strong>${userGuess === random ? "You won!" : "You lost!"}</strong>
+  `;
 }
 
-
-function random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
-
-// range.addEventListener('change', rangeHandle)
-play_btn.addEventListener('click', clickHandle)
-
+guessForm.addEventListener("submit", handleGuessSubmit);
+range.addEventListener("input", handleRangeChange);
